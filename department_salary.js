@@ -40,10 +40,18 @@ const company = {
                     }] }]};
 
 function calculateDepartmentSalary(department){
-    let dept = company.departments.find(dept=>dept.departmentName===department);
-    let total = 0;
-for (subordinate in dept.employees.subordinates){
-    total+=dept.employees.subordinates[subordinate].salary;
+let total = 0;
+let dept = company.departments.find(dept=>dept.departmentName===department);
+dept.employees.forEach(employee=>{total+=employee.salary});
+for (let i = 0; i < dept.employees.length; i++) {
+    const element = array[i];
+    dept.employees[i].subordinates.forEach(subordinate=>calculateDepartmentSalary())    
 }
+
+
+
+console.log(total);
+return;
 }
+calculateDepartmentSalary('Sales');
 
