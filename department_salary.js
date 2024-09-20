@@ -21,7 +21,7 @@ const company = {
                         salary: 90000,
                         subordinates: []
                     }]},
-            {
+           {
                 departmentName: 'Sales',
                 employees: [
                     {
@@ -39,19 +39,31 @@ const company = {
                         subordinates: []
                     }] }]};
 
-function calculateDepartmentSalary(department){
-let total = 0;
-let dept = company.departments.find(dept=>dept.departmentName===department);
-dept.employees.forEach(employee=>{total+=employee.salary});
-for (let i = 0; i < dept.employees.length; i++) {
-    const element = array[i];
-    dept.employees[i].subordinates.forEach(subordinate=>calculateDepartmentSalary())    
+function calculateDepartmentSalary(x){
+let totalSalary = x.salary||0;//crucial for the code; if a salary is not there it sends back zero instead of undefined.
+if(x.employees){//if employees
+    for (let employee of x.employees){
+        totalSalary+=calculateDepartmentSalary(employee);
+    }}
+if(x.subordinates){//if suboordinates
+for (let subordinate of x.subordinates){
+    totalSalary+=calculateDepartmentSalary(subordinate);
 }
 
 
-
-console.log(total);
-return;
 }
-calculateDepartmentSalary('Sales');
+    return totalSalary
+}
+console.log(calculateDepartmentSalary(company.departments[1]));
+
+function calculateCompanySalary(x){
+    let arr = [];
+    for (let dept of x.departments){
+        arr.push(calculateDepartmentSalary(dept));
+    }
+    let companyTotal = arr.reduce((x,y)=> x+y,0);
+    console.log(companyTotal);
+    return;
+}
+calculateCompanySalary(company);
 
