@@ -61,7 +61,7 @@ function calculateCompanySalary(x){
     for (let dept of x.departments){
         arr.push(calculateDepartmentSalary(dept));
     }
-    let companyTotal = arr.reduce((x,y)=> x+y,0);
+    let companyTotal = arr.reduce((x,y)=> x+y,0);//pushes to array and adds the elements
     console.log(companyTotal);
     return;
 }
